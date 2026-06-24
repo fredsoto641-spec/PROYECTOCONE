@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --site-primary: #E91E63;
+    --site-primary-hover: #D81B60;
+    --site-text: #222222;
+    --site-muted: #6B7280;
+    --site-bg: #F8F8F8;
+    --admin-ink: #1f2937;
+    --admin-ink-hover: #374151;
+    --admin-muted: #4b5563;
+    --admin-border: #d1d5db;
+    --admin-danger: #dc2626;
+    --admin-danger-soft: #fef2f2;
+    --admin-focus: #6366f1;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer components {
+    .public-nav-desktop {
+        display: none;
+    }
+
+    .public-nav-mobile-toggle {
+        display: inline-flex;
+    }
+
+    @media (min-width: 900px) {
+        .public-nav-desktop {
+            display: flex;
+        }
+
+        .public-nav-mobile-toggle,
+        .public-nav-mobile-panel {
+            display: none !important;
+        }
+    }
+
+    .admin-button-primary {
+        @apply inline-flex h-10 items-center justify-center rounded-md px-5 text-xs font-semibold uppercase tracking-widest text-white transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+        background-color: var(--admin-ink);
+    }
+
+    .admin-button-primary:hover,
+    .admin-button-primary:focus {
+        background-color: var(--admin-ink-hover);
+    }
+
+    .admin-button-primary:focus {
+        --tw-ring-color: var(--admin-focus);
+    }
+
+    .admin-button-cancel {
+        @apply inline-flex h-10 items-center justify-center rounded-md px-5 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+        color: var(--admin-muted);
+    }
+
+    .admin-button-cancel:hover {
+        color: var(--admin-ink);
+    }
+
+    .admin-button-cancel:focus {
+        --tw-ring-color: var(--admin-focus);
+    }
+
+    .admin-button-danger-outline {
+        @apply inline-flex h-10 items-center justify-center rounded-md border px-5 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+        border-color: var(--admin-danger);
+        color: var(--admin-danger);
+    }
+
+    .admin-button-danger-outline:hover {
+        background-color: var(--admin-danger-soft);
+    }
+
+    .admin-button-danger-outline:focus {
+        --tw-ring-color: var(--admin-danger);
+    }
+}
+
+@layer utilities {
+    @keyframes marquee-scroll {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .marquee-track {
+        animation: marquee-scroll 36s linear infinite;
+    }
+
+    .marquee-track:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes skeleton-shimmer {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(100%);
+        }
+    }
+
+    .skeleton-shimmer {
+        position: relative;
+        overflow: hidden;
+        background-color: #e5e7eb;
+    }
+
+    .skeleton-shimmer::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        animation: skeleton-shimmer 1.4s ease-in-out infinite;
+        background-image: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 75%) 50%, transparent 100%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+            animation: none;
+            flex-wrap: wrap;
+            width: auto;
+        }
+
+        .skeleton-shimmer {
+            animation: none;
+        }
+
+        .skeleton-shimmer::after {
+            animation: none;
+            content: none;
+        }
+    }
+}

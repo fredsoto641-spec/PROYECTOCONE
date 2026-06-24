@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->string('subtitle')->nullable();
+            $table->text('body');
+            $table->string('cover_image_url')->nullable();
+            $table->json('gallery_image_urls')->nullable();
+            $table->string('whatsapp_url')->nullable();
+            $table->string('telegram_url')->nullable();
+            $table->string('sms_url')->nullable();
+            $table->json('tags')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
